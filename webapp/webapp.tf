@@ -120,6 +120,8 @@ resource "aws_cloudfront_distribution" "distribution" {
 
     # SSL certificate for the service.
     viewer_certificate {
-        cloudfront_default_certificate = true
+        cloudfront_default_certificate = var.certificate_arn == "" ? true : false
+        acm_certificate_arn = var.certificate_arn
+        ssl_support_method = "sni-only"
     }
 }

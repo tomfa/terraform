@@ -13,3 +13,7 @@ variable "error_code" {
 	default = "200"
 }
 
+variable "certificate_arn" {
+	description = "ARN of Certificate to use for distribution"
+	default = ""
+}
