@@ -64,7 +64,7 @@ EOF
 
 resource "aws_cloudfront_distribution" "distribution" {
     origin {
-        domain_name = "${aws_s3_bucket.mybucket.website_endpoint}"
+        domain_name = aws_s3_bucket.mybucket.website_endpoint
         origin_id   = "S3-${aws_s3_bucket.mybucket.bucket}"
 
         custom_origin_config  {
