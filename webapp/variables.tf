@@ -4,6 +4,11 @@ variable "aws_region" {
 variable "bucket_name" {
 	description = "e.g. your-bucket-name"
 }
+variable "domain_aliases" {
+	description = "e.g. [\"www.mybucket.com\"]. Requires a matching certificate_arn"
+	default = []
+	type = list(string)
+}
 variable "error_path" {
 	description = "Path to be served when bucket file is missing"
 	default = "/index.html"
