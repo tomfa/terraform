@@ -33,7 +33,7 @@ resource "aws_s3_bucket" "mybucket" {
     acl = "public-read"
 
     website {
-        redirect_all_requests_to = "index.html"
+        index_document = "index.html"
     }
 
     cors_rule {
