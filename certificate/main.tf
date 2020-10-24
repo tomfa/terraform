@@ -13,13 +13,19 @@ resource "aws_acm_certificate" "cert" {
 }
 
 resource "aws_route53_record" "example" {
-  for_each = var.route53_zone_id != "" && var.validation_method == "DNS" ? aws_acm_certificate.cert.domain_validation_options : {}
+   for_each = var.route53_zone_id == "" || var.validation_method != "DNS" ? {} : {
+    for dvo in aws_acm_certificate.cert.domain_validation_options : dvo.domain_name => {
+      name   = dvo.resource_record_name
+      record = dvo.resource_record_value
+      type   = dvo.resource_record_type
+    }
+  }
 
   allow_overwrite = true
-  name            = each.value.resource_record_name
-  records         = [each.value.resource_record_value]
+  name            = each.value.name
+  records         = [each.value.record]
   ttl             = 60
-  type            = each.value.resource_record_type
+  type            = each.value.type
   zone_id         = var.route53_zone_id
 }
 
