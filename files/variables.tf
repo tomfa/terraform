@@ -13,5 +13,17 @@ variable "bucket_name" {
 }
 
 variable "acl" {
-	description = "typically private or public-read"
+	description = "typically public-read for shared website assets, or private for user uploads"
+	default = "private"
+}
+
+variable "domain_aliases" {
+	description = "e.g. [\"files.mydomain.com\"]. If set, requires a matching certificate_arn."
+	default = []
+	type = list(string)
+}
+
+variable "certificate_arn" {
+	description = "ARN of Certificate to use for distribution. Required if domain_aliases is set."
+	default = ""
 }
