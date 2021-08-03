@@ -1,5 +1,3 @@
-provider "aws" {}
-
 resource "aws_route53_record" "domain" {
   name    = var.domain
   zone_id = var.dns_zone_id

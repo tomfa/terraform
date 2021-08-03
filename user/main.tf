@@ -1,5 +1,3 @@
-provider "aws" {}
-
 resource "aws_iam_user" "bucket_user" {
   name = var.iam_user_name
   tags = {}
