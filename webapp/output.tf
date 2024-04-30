@@ -7,7 +7,7 @@ output "CLOUDFRONT_ZONE_ID" {
 }
 
 output "S3_WEBSITE_URL" {
-    value = aws_s3_bucket.mybucket.website_endpoint
+    value = aws_s3_bucket_website_configuration.website_config.website_endpoint
 }
 
 output "CLOUDFRONT_URL" {
