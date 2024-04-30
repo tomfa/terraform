@@ -52,6 +52,29 @@ resource "aws_s3_bucket_cors_configuration" "cors" {
     max_age_seconds = 3000
   }
 }
+
+resource "aws_s3_bucket_policy" "allow_get_object" {
+  bucket = aws_s3_bucket.mybucket.id
+  policy = data.aws_iam_policy_document.allow_get_object.json
+}
+
+data "aws_iam_policy_document" "allow_get_object" {
+  statement {
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
+
+    actions = [
+      "s3:GetObject",
+    ]
+
+    resources = [
+      "${aws_s3_bucket.mybucket.arn}/*",
+    ]
+  }
+}
+
 resource "aws_cloudfront_distribution" "distribution" {
     origin {
         domain_name = aws_s3_bucket_website_configuration.website_config.website_endpoint
